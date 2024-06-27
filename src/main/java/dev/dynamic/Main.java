@@ -12,7 +12,7 @@ public class Main {
     public static HeartbeatManager heartbeatManager;
 
     public static void main(String[] args) {
-        heartbeatManager = new HeartbeatManager(new InetSocketAddress("localhost", 8080));
+        heartbeatManager = new HeartbeatManager(new InetSocketAddress("localhost", 8887));
         heartbeatManager.start();
         heartbeatManager.startHeartbeatManager();
     }
