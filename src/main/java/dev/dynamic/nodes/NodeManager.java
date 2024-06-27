@@ -9,7 +9,7 @@ import java.util.Map;
 @UtilityClass
 public class NodeManager {
 
-    Map<Integer, CacheNode> nodeMap = new HashMap<>();
+    public final Map<Integer, CacheNode> nodeMap = new HashMap<>();
 
     public void addNode(CacheNode node) {
         nodeMap.put(node.getNodeId(), node);

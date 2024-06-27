@@ -37,6 +37,10 @@ public class CacheNode {
         return DockerClientImpl.getInstance(config, client);
     }
 
+    /**
+     * Deploys the container to the node
+     * If the container is already deployed, it will start the container
+     */
     public void deployContainer() {
         DockerClient client = connect();
         Image image = client.listImagesCmd().exec().stream()
@@ -48,11 +52,12 @@ public class CacheNode {
             // TODO: build the image from the Dockerfile
         }
 
-        this.containerId = client.createContainerCmd(image.getId())
-                .withName("dynamic-cache-" + nodeId)
-                .exec()
-                .getId();
-
+        if (containerId == null) {
+            this.containerId = client.createContainerCmd(image.getId())
+                    .withName("dynamic-cache-" + nodeId)
+                    .exec()
+                    .getId();
+        }
         client.startContainerCmd(containerId).exec();
     }
 }

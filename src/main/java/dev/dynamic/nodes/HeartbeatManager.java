@@ -58,14 +58,14 @@ public class HeartbeatManager extends WebSocketServer {
     }
 
     public void startHeartbeatManager() {
-        Thread thread = new Thread(() -> {
-            NodeManager.nodeMap.forEach((id, node) -> {
-                if (!respondedNodes.contains(node)) {
-                    Main.logger.warn("Node {} did not respond to the heartbeat request.", id);
-                    NodeManager.getNode(id).setAlive(false);
-                }
-            });
-        });
+        Thread thread = new Thread(() -> NodeManager.nodeMap.forEach((id, node) -> {
+            if (!respondedNodes.contains(node)) {
+                Main.logger.error("Node {} did not respond to the heartbeat request.", id);
+                NodeManager.getNode(id).setAlive(false);
+            } else {
+                NodeManager.getNode(id).setAlive(true);
+            }
+        }));
         thread.start();
     }
 }
